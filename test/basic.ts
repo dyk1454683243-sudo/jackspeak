@@ -292,6 +292,53 @@ t.test('multiple is [] if env is empty', t => {
   t.end()
 })
 
+t.test('Usage is always emitted before headings', t => {
+  const headingFirst = jack().heading('Test')
+  const optThenHeading = jack()
+    .opt({ foo: { description: 'bar' } })
+    .heading('Test')
+
+  const headingFirstUsage = headingFirst.usage()
+  const optThenHeadingUsage = optThenHeading.usage()
+  t.match(headingFirstUsage, /^Usage:/, 'heading-first usage starts with Usage')
+  t.ok(
+    headingFirstUsage.indexOf('Usage:') < headingFirstUsage.indexOf('Test'),
+    'heading-first prints Usage before heading',
+  )
+  t.match(
+    optThenHeadingUsage,
+    /^Usage:/,
+    'opt-then-heading usage starts with Usage',
+  )
+  t.ok(
+    optThenHeadingUsage.indexOf('Usage:') <
+      optThenHeadingUsage.indexOf('Test'),
+    'opt-then-heading prints Usage before heading',
+  )
+
+  const headingFirstMd = headingFirst.usageMarkdown()
+  const optThenHeadingMd = optThenHeading.usageMarkdown()
+  t.match(
+    headingFirstMd,
+    /^Usage:/,
+    'heading-first markdown starts with Usage',
+  )
+  t.ok(
+    headingFirstMd.indexOf('Usage:') < headingFirstMd.indexOf('Test'),
+    'heading-first markdown prints Usage before heading',
+  )
+  t.match(
+    optThenHeadingMd,
+    /^Usage:/,
+    'opt-then-heading markdown starts with Usage',
+  )
+  t.ok(
+    optThenHeadingMd.indexOf('Usage:') < optThenHeadingMd.indexOf('Test'),
+    'opt-then-heading markdown prints Usage before heading',
+  )
+  t.end()
+})
+
 t.test('no env prefix, no writing env', t => {
   delete process.env.FOO
   const j = jack()

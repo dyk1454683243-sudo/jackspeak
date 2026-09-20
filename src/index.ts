@@ -1079,12 +1079,6 @@ export class Jack<C extends ConfigSet = {}> {
     const ui = cliui({ width })
     const first = this.#fields[0]
     let start = first?.type === 'heading' ? 1 : 0
-    if (first?.type === 'heading') {
-      ui.div({
-        padding: [0, 0, 0, 0],
-        text: normalize(first.text),
-      })
-    }
     ui.div({ padding: [0, 0, 0, 0], text: 'Usage:' })
     if (this.#options.usage) {
       ui.div({
@@ -1118,6 +1112,12 @@ export class Jack<C extends ConfigSet = {}> {
     }
 
     ui.div({ padding: [0, 0, 0, 0], text: '' })
+    if (first?.type === 'heading') {
+      ui.div({
+        padding: [0, 0, 0, 0],
+        text: normalize(first.text),
+      })
+    }
     const maybeDesc = this.#fields[start]
     if (maybeDesc && isDescription(maybeDesc)) {
       const print = normalize(maybeDesc.text, maybeDesc.pre)
@@ -1179,9 +1179,6 @@ export class Jack<C extends ConfigSet = {}> {
     let headingLevel = 1
     const first = this.#fields[0]
     let start = first?.type === 'heading' ? 1 : 0
-    if (first?.type === 'heading') {
-      out.push(`# ${normalizeOneLine(first.text)}`)
-    }
     out.push('Usage:')
     if (this.#options.usage) {
       out.push(normalizeMarkdown(this.#options.usage, true))
@@ -1208,6 +1205,9 @@ export class Jack<C extends ConfigSet = {}> {
       out.push(normalizeMarkdown(usage, true))
     }
 
+    if (first?.type === 'heading') {
+      out.push(`# ${normalizeOneLine(first.text)}`)
+    }
     const maybeDesc = this.#fields[start]
     if (maybeDesc && isDescription(maybeDesc)) {
       out.push(normalizeMarkdown(maybeDesc.text, maybeDesc.pre))

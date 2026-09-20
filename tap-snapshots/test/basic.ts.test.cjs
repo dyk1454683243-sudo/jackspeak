@@ -703,10 +703,10 @@ Object {
 `
 
 exports[`test/basic.ts > TAP > inspection > must match snapshot 2`] = `
-The best Foo that ever Fooed
 Usage:
   foo [options] <files>
 
+The best Foo that ever Fooed
 Executes all the files and interprets their output as TAP formatted test result
 data.
 
@@ -800,13 +800,13 @@ This is a list:
 `
 
 exports[`test/basic.ts > TAP > inspection > must match snapshot 3`] = `
-# The best Foo that ever Fooed
-
 Usage:
 
 \`\`\`
 foo [options] <files>
 \`\`\`
+
+# The best Foo that ever Fooed
 
 Executes all the files and interprets their output as TAP formatted test result data.
 
